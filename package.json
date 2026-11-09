@@ -1,0 +1,16 @@
+{
+  "name": "plugin-velox-alpha",
+  "version": "2.0.0",
+  "description": "ElizaOS plugin: live crypto spot quotes and stablecoin basis paid per call with x402 on Base ($0.03 USDC), plus one free delayed regime sample per day",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "images", "README.md"],
+  "scripts": { "build": "tsup src/index.ts --format cjs,esm --dts --clean" },
+  "publishConfig": { "access": "public" },
+  "peerDependencies": { "viem": "^2.0.0" },
+  "peerDependenciesMeta": { "viem": { "optional": true } },
+  "devDependencies": { "@types/node": "^22.0.0", "tsup": "^8.0.0", "typescript": "^5.0.0", "viem": "^2.0.0" },
+  "keywords": ["elizaos", "plugin", "x402", "base", "usdc", "crypto-quotes", "basis", "ai-agents"],
+  "license": "MIT"
+}
