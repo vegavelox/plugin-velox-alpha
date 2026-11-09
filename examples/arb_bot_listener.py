@@ -180,17 +180,17 @@ def evaluate_arbitrage_opportunities(quotes_payload: Dict[str, Any], hurdle_bps:
             continue
 
         spread_bps = abs(dex_price - cex_price) / cex_price * 10000.0
-        direction = "BUY_DEX_SELL_CEX" if dex_price < cex_price else "BUY_CEX_SELL_DEX"
+        divergence_side = "DEX_LOWER_THAN_CEX" if dex_price < cex_price else "CEX_LOWER_THAN_DEX"
 
         logger.info(
             f"[{sym}] CEX Mid: ${cex_price:,.2f} | DEX Mid: ${dex_price:,.2f} | "
-            f"Spread: {spread_bps:.2f} bps | Direction: {direction}"
+            f"Divergence: {spread_bps:.2f} bps | Relative: {divergence_side}"
         )
 
         if spread_bps >= hurdle_bps:
             logger.warning(
-                f"==> [SIGNAL TRIGGERED] {sym} spread {spread_bps:.2f} bps clears hurdle {hurdle_bps:.2f} bps! "
-                f"Action: {direction} (est. gross edge: {spread_bps - hurdle_bps:.2f} bps)"
+                f"==> [THRESHOLD EXCEEDED] {sym} mid-price divergence {spread_bps:.2f} bps clears hurdle {hurdle_bps:.2f} bps. "
+                f"Spread delta above hurdle: +{spread_bps - hurdle_bps:.2f} bps (raw quotes, not trade signals)."
             )
             opportunities_found += 1
 
